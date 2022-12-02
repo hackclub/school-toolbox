@@ -5,7 +5,7 @@
 
 Download the code to your computer:
 
-    $ git clone https://github.com/hackclub/site && cd site
+    $ git clone https://github.com/hackclub/school-toolbox && cd site
 
 Install dependencies:
 
