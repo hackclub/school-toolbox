@@ -7,7 +7,7 @@ Notes on running a club for Hack Club leaders and school administrators - powere
 
 Download the code to your computer:
 
-    $ git clone https://github.com/hackclub/school-toolbox && cd site
+    $ git clone https://github.com/hackclub/school-toolbox && cd school-toolbox
 
 Install dependencies:
 
