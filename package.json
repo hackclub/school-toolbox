@@ -1,0 +1,30 @@
+{
+  "version": "0.0.1",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start",
+    "format": "prettier --ignore-path ./.prettierignore --write ."
+  },
+  "dependencies": {
+    "@emotion/styled": "^11.10.5",
+    "@hackclub/icons": "^0.0.9",
+    "@hackclub/meta": "^1.1.0",
+    "@hackclub/theme": "^0.3.1",
+    "@mdx-js/loader": "^2.1.5",
+    "@next/mdx": "^10.0.4",
+    "geopattern": "^1.2.3",
+    "gray-matter": "^4.0.3",
+    "next": "^13.0.5",
+    "prop-types": "^15.8.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "remark-frontmatter": "^4.0.1",
+    "theme-ui": "^0.10.0"
+  },
+  "devDependencies": {
+    "prettier": "^2.8.0"
+  }
+}
