@@ -15,7 +15,7 @@ import Icon from '@hackclub/icons'
 import { useState, useEffect } from 'react'
 import { format } from '../lib/utils'
 
-function Item({ name, label, icon, url }) {
+function Item({ name, label, description, icon, url }) {
   return (
     <Flex
       as="a"
@@ -42,29 +42,49 @@ function Item({ name, label, icon, url }) {
             bg: 'blue',
             color: 'white',
             p: 1,
-            borderRadius: 6
+            borderRadius: 6,
+            flexShrink: 0,
+            alignSelf: 'start'
           }}
         >
           <Icon glyph={icon} size={24} />
         </Flex>
       )}
-      <Flex
-        sx={{ flexDirection: ['column', null, null, 'row'], float: 'left' }}
-      >
-        <Heading sx={{ ml: '12px' }}>{name}</Heading>
-        {label && (
-          <Heading
-            sx={{
-              fontWeight: 400,
-              ml: '12px',
-              display: ['none', 'block'],
-              transform: 'translateY(3px)'
-            }}
-            as="h3"
-          >
-            ({label})
-          </Heading>
-        )}
+      <Flex sx={{
+        flexDirection: 'column',
+        alignSelf: 'start'
+      }}>
+        <Flex
+          sx={{ flexDirection: ['column', null, null, 'row'], float: 'left' }}
+        >
+          <Heading sx={{ ml: '12px' }}>{name}</Heading>
+          {label && (
+            <Heading
+              sx={{
+                fontWeight: 400,
+                ml: '12px',
+                display: ['none', 'block'],
+                transform: 'translateY(3px)'
+              }}
+              as="h3"
+            >
+              ({label})
+            </Heading>
+          )}
+        </Flex>
+        {description && (
+            <Heading
+              sx={{
+                fontWeight: 400,
+                ml: '12px',
+                mt: '8px',
+                transform: 'translateY(3px)'
+              }}
+              as="h3"
+            >
+              {description}
+            </Heading>
+          )}
       </Flex>
       <Flex
         sx={{ position: 'absolute', top: 2, right: 2, color: 'placeholder' }}
@@ -257,6 +277,7 @@ export default function Home({ individualFiles, sections, generalBG }) {
           {individualFiles.map((file, index) => (
             <Item
               name={file.title}
+              description={file.description}
               icon="post"
               key={file.name}
               url={`view/${file.name}`}
@@ -280,6 +301,7 @@ export default function Home({ individualFiles, sections, generalBG }) {
                 {folder.content.map((file, index) => (
                   <Item
                     name={file.title}
+                    description={file.description}
                     icon="docs"
                     key={file.name}
                     url={`view/${folder.name}/${file.name}`}
