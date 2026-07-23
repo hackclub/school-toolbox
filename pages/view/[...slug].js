@@ -156,6 +156,21 @@ export default function Content({
             >
               {title}
             </Heading>
+            {typeof author === 'string' && (
+              <Text
+                as="p"
+                sx={{ color: 'snow', textShadow: 'card', mt: 2, fontSize: 3 }}
+              >
+                by{' '}
+                {typeof authorLink === 'string' ? (
+                  <Link href={authorLink} sx={{ color: 'snow' }}>
+                    {author}
+                  </Link>
+                ) : (
+                  author
+                )}
+              </Text>
+            )}
           </Container>
         </Box>
       </Box>
@@ -172,16 +187,6 @@ export default function Content({
               <Text sx={{ fontSize: [2, 3] }}>&larr; Back</Text>
             </Box>
           </Link>
-          {typeof author === 'string' && (
-            <p>
-              by{' '}
-              {typeof authorLink === 'string' ? (
-                <a href={authorLink}>{author}</a>
-              ) : (
-                author
-              )}
-            </p>
-          )}
           <Markdown />
         </Styled>
       </Container>
