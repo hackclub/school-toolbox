@@ -30,9 +30,12 @@ function Item({ name, label, description, icon, url }) {
         alignItems: 'center',
         borderRadius: 6,
         position: 'relative',
-        transition: 'transform .125s ease-in-out box-shadow .125s ease-in-out',
+        willChange: 'transform',
+        transition:
+          'transform .2s cubic-bezier(0.22, 1, 0.36, 1), box-shadow .2s cubic-bezier(0.22, 1, 0.36, 1)',
         ':hover,:focus': {
-          transform: 'scale(1.0225)'
+          transform: 'translateY(-3px) scale(1.0225)',
+          boxShadow: 'elevated'
         }
       }}
     >
@@ -92,6 +95,102 @@ function Item({ name, label, description, icon, url }) {
         <Icon glyph="expand" size={24} />
       </Flex>
     </Flex>
+  )
+}
+
+function SectionTitle({ title, icon, iconColor }) {
+  return (
+    <Flex sx={{ alignItems: 'center', justifyContent: ['center', 'flex-start'] }}>
+      {icon && (
+        <Flex
+          sx={{
+            bg: iconColor,
+            color: 'white',
+            p: 1,
+            mr: 2,
+            borderRadius: 6,
+            flexShrink: 0
+          }}
+        >
+          <Icon glyph={icon} size={24} />
+        </Flex>
+      )}
+      <Heading as="h1">{title}</Heading>
+    </Flex>
+  )
+}
+
+function Section({ folder }) {
+  const Markdown = require(`../content/${folder.description}`).default
+  const body = (
+    <>
+      <Markdown />
+      <Grid columns={[1, 2]}>
+        {folder.content.map(file => (
+          <Item
+            name={file.title}
+            description={file.description}
+            icon="docs"
+            key={file.name}
+            url={`view/${folder.name}/${file.name}`}
+          />
+        ))}
+      </Grid>
+    </>
+  )
+
+  if (folder.collapsable) {
+    return (
+      <Box
+        as="details"
+        sx={{
+          pt: 3,
+          mt: 3,
+          '&[open] summary .caret': { transform: 'rotate(90deg)' }
+        }}
+      >
+        <Flex
+          as="summary"
+          sx={{
+            cursor: 'pointer',
+            alignItems: 'center',
+            listStyle: 'none',
+            justifyContent: ['center', 'flex-start'],
+            '::-webkit-details-marker': { display: 'none' }
+          }}
+        >
+          <Box
+            className="caret"
+            sx={{
+              mr: 2,
+              width: 0,
+              height: 0,
+              borderTop: '6px solid transparent',
+              borderBottom: '6px solid transparent',
+              borderLeft: '8px solid currentColor',
+              transition: 'transform .125s ease-in-out'
+            }}
+          />
+          <SectionTitle
+            title={folder.title}
+            icon={folder.icon}
+            iconColor={folder.iconColor}
+          />
+        </Flex>
+        {body}
+      </Box>
+    )
+  }
+
+  return (
+    <Box sx={{ pt: 3, mt: 3 }}>
+      <SectionTitle
+        title={folder.title}
+        icon={folder.icon}
+        iconColor={folder.iconColor}
+      />
+      {body}
+    </Box>
   )
 }
 
@@ -270,9 +369,6 @@ export default function Home({ individualFiles, sections, generalBG }) {
         </Box>
       </Box>
       <Container>
-        <Heading py={3} mt={3} as="h1" sx={{ textAlign: ['center', 'left'] }}>
-          General
-        </Heading>
         <Grid columns={[1, 2]}>
           {individualFiles.map((file, index) => (
             <Item
@@ -284,33 +380,9 @@ export default function Home({ individualFiles, sections, generalBG }) {
             />
           ))}
         </Grid>
-        {sections.map((folder, index) => {
-          const Markdown = require(`../content/${folder.description}`).default
-          return (
-            <>
-              <Heading
-                pt={3}
-                mt={3}
-                as="h1"
-                sx={{ textAlign: ['center', 'left'] }}
-              >
-                {folder.title}
-              </Heading>
-              <Markdown />
-              <Grid columns={[1, 2]}>
-                {folder.content.map((file, index) => (
-                  <Item
-                    name={file.title}
-                    description={file.description}
-                    icon="docs"
-                    key={file.name}
-                    url={`view/${folder.name}/${file.name}`}
-                  />
-                ))}
-              </Grid>
-            </>
-          )
-        })}
+        {sections.map(folder => (
+          <Section folder={folder} key={folder.name} />
+        ))}
       </Container>
       <Box
         sx={{

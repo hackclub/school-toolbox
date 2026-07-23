@@ -1,10 +1,9 @@
-import remarkFrontmatter from 'remark-frontmatter'
 import nextMdx from '@next/mdx'
 
 const withMDX = nextMdx({
   extension: /\.mdx?$/,
   options: {
-    remarkPlugins: [remarkFrontmatter]
+    remarkPlugins: [['remark-frontmatter']]
   }
 })
 export default withMDX({
