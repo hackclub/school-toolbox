@@ -6,15 +6,9 @@ import Meta from '@hackclub/meta'
 import Head from 'next/head'
 import '../public/scrollbar.css'
 
-var GeoPattern = require('geopattern')
-
 export default function App(props) {
   const { Component, pageProps } = props
-  const [generalBG] = useState(
-    GeoPattern.generate((Math.random() + 1).toString(36).substring(7), {
-      baseColor: '#ec3750'
-    }).toDataUrl()
-  )
+  const [generalBG] = useState('url(/images/meow.png)')
   return (
     <ThemeProvider
       theme={{

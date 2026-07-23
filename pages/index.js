@@ -30,9 +30,12 @@ function Item({ name, label, description, icon, url }) {
         alignItems: 'center',
         borderRadius: 6,
         position: 'relative',
-        transition: 'transform .125s ease-in-out box-shadow .125s ease-in-out',
+        willChange: 'transform',
+        transition:
+          'transform .2s cubic-bezier(0.22, 1, 0.36, 1), box-shadow .2s cubic-bezier(0.22, 1, 0.36, 1)',
         ':hover,:focus': {
-          transform: 'scale(1.0225)'
+          transform: 'translateY(-3px) scale(1.0225)',
+          boxShadow: 'elevated'
         }
       }}
     >
@@ -366,9 +369,6 @@ export default function Home({ individualFiles, sections, generalBG }) {
         </Box>
       </Box>
       <Container>
-        <Heading py={3} mt={3} as="h1" sx={{ textAlign: ['center', 'left'] }}>
-          General
-        </Heading>
         <Grid columns={[1, 2]}>
           {individualFiles.map((file, index) => (
             <Item
