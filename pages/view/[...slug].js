@@ -106,7 +106,7 @@ export default function Content({
   authorLink
 }) {
   const shades = [0.5, 0.75]
-  const Markdown = require(`../../content/${location}`).default
+  const Markdown = require(`../../content/${location}.mdx`).default
 
   return (
     <Box sx={{ bg: 'sheet', minHeight: '100vh', pb: 4 }}>
@@ -200,7 +200,7 @@ export default function Content({
       >
         Want to make this page better?{' '}
         <Link
-          href={`https://github.com/hackclub/school-toolbox/blob/main/content/${location}`}
+          href={`https://github.com/hackclub/school-toolbox/blob/main/content/${location}.mdx`}
           target="_blank"
         >
           Contribute on GitHub
